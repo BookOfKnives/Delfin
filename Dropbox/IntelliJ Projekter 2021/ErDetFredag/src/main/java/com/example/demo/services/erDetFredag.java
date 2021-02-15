@@ -3,8 +3,8 @@ package com.example.demo.services;
 import java.util.Calendar;
 
 public class erDetFredag {
-    Calendar cal = Calendar.getInstance();
-    int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
+    private Calendar cal = Calendar.getInstance();
+    private int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK);
 
     public String jamenErDet() {
         return "Det er " + lavTalletOmDagOmTilNavn(hvadDagErDet()) + " idag.";
