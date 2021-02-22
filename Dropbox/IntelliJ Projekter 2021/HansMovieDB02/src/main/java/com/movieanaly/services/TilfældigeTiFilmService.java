@@ -15,7 +15,7 @@ public class TilfældigeTiFilmService {
     }
 
     public ArrayList<Movie> lavNyTilfældigArray() {
-        for (int i = 0; i < 9; i++) {
+        for (int i = 0; i < 10; i++) {
             Random danrom = new Random();
             AListMedTiFilm.add(ALM.get(danrom.nextInt(ALM.size())));
             Collections.sort(AListMedTiFilm);
