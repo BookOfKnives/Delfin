@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1000/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>  
+<body>
+hello!
+<div th:each="department : ${departments}"></div>
+<div th:text="${department.getDeptno()}"></div>
+</body>
+</html>
