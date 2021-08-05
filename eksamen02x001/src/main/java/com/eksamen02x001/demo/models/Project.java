@@ -6,7 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Task {
+public class Project {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +14,10 @@ public class Task {
     private String title;
     private String description;
 
-    protected Task() {
+    protected Project() {
     }
 
-    public Task(String title, String description) {
+    public Project(String title, String description) {
         this.title = title;
         this.description = description;
     }

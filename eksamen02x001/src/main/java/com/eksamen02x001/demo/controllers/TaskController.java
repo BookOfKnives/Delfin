@@ -1,6 +1,6 @@
 package com.eksamen02x001.demo.controllers;
 
-import com.eksamen02x001.demo.models.Task;
+import com.eksamen02x001.demo.models.Project;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +12,8 @@ import java.util.ArrayList;
 @Controller
 public class TaskController {
 
-    private ArrayList<Task> TaskArrayList = new ArrayList<>();
-    Task newTask = new Task("yes", "sex");
+    private ArrayList<Project> projectArrayList = new ArrayList<>();
+    Project newProject = new Project("yes", "sex");
 
 
     @GetMapping(value={"/", "/index"})
@@ -28,7 +28,7 @@ public class TaskController {
                            Model model
                            ) {
 
-        model.addAttribute("TaskArrayList", TaskArrayList);
+        model.addAttribute("TaskArrayList", projectArrayList);
         return "task.html";
     }
 
@@ -36,11 +36,11 @@ public class TaskController {
       public String addtask(@RequestParam(name="taskName", required=false) String taskName,
                             @RequestParam(name="taskDescription", required=false) String taskDescription,
                             Model model){
-        Task newTask = new Task(taskName, taskDescription);
+        Project newProject = new Project(taskName, taskDescription);
 
-        TaskArrayList.add(newTask);
-        model.addAttribute("TaskArrayList", TaskArrayList);
-    TaskArrayList.add(newTask);
+        projectArrayList.add(newProject);
+        model.addAttribute("TaskArrayList", projectArrayList);
+    projectArrayList.add(newProject);
     return "redirect:";
     }
 
