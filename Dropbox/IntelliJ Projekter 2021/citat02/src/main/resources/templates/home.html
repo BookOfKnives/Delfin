@@ -1,10 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head> <!-- 1303 2021 kode taget fra Benjamins eksempel, om at få data imellem java og html.-->
+    <meta charset="UTF-8">
+    <title>Spring Boot Session Management Example</title>
 </head>
 <body>
-$END$
+<div>
+    <form action="/addNote" method="post">
+        <input name="note" />
+        <br> <button type="submit" >Add Note</button>
+    </form>
+</div>
+<div>
+    <form action="/invalidate/session" method="post">
+        <input type="submit" value="Destroy Session" />
+    </form>
+</div>
+<div>
+    <h2>Notes</h2>
+    <ul th:each="note : ${session.notes}">
+        <li th:text="${note}"></li>
+    </ul>
+</div>
+
 </body>
 </html>

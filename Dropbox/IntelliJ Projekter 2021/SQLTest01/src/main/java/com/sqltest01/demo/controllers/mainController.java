@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
-//I really hate import statements
+
 @Controller
 public class mainController {
 
@@ -22,4 +22,6 @@ public class mainController {
 
         return "index";
     }
+
+
 }

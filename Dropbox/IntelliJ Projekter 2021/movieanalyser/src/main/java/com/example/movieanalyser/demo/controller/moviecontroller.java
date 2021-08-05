@@ -3,6 +3,7 @@ package com.example.movieanalyser.demo.controller;
 import com.example.movieanalyser.demo.services.FileHandler;
 import com.example.movieanalyser.demo.model.Movie;
 import com.example.movieanalyser.demo.model.MovieModel;
+import com.example.movieanalyser.demo.services.MovieHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -12,14 +13,13 @@ import java.util.ArrayList;
 @Controller
 public class moviecontroller {
 
-        FileHandler fh = new FileHandler();
+    MovieHandler mh = new MovieHandler();
+//       FileHandler fh = new FileHandler();
     private int testIntOmAlleKlasserKøres = 0;
-    private MovieModel movieModel = new MovieModel();
-    private ArrayList<Movie> movieList = new ArrayList<>();
+//    private MovieModel movieModel = new MovieModel();
+//    private ArrayList<Movie> movieList = new ArrayList<>();
+//
 
-    public void initAll(){
-        movieList = fh.readCSVToMakeMovieObjects();
-    }
 
     @ResponseBody
     @GetMapping("/")
@@ -41,17 +41,17 @@ public class moviecontroller {
     @GetMapping("/getFirstMovie")
     public String firstMovie(){
 
-        return movieList.get(0).toString();
+        return mh.getMeTheFirstMovie().toString();
     }
     @ResponseBody
     @GetMapping("/testint")
     public String testString(){
         return "this is a test." + testIntOmAlleKlasserKøres;
     }
+
     @ResponseBody
     @GetMapping("/fileTest")
     public String fileTest() {
-        testIntOmAlleKlasserKøres++;
         try {
             FileHandler fh = new FileHandler();
             return fh.readFileForMakingMovies();
