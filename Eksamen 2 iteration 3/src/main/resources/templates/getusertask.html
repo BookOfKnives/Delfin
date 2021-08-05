@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>get user task page</title>
+</head>
+<body>
+<form th:action="@{/TaskReceived}" method="post" autofocus>
+    <label for="taskName">What is the name of the task?</label><br>
+    <input type="text" id="taskName" name="TaskName" value="task name"><br>
+    <label for="taskDesc">Describe the task</label><br>
+    <input type="text" id="taskDesc" name="TaskDesc" value="task description"><br><br>
+    <input type="submit" value="Submit">
+</form>
+
+hello!
+<table>
+
+    <th>Task</th>
+    <ul th:each="task : ${taskArrayList}">
+        <li th:text="${task.taskName}"></li>
+
+        <li th:text="${task.taskDescription}"></li>
+
+
+    </ul>
+</table>
+<a th:href="@{deleteMostRecentTask}" method="get">
+<form>
+<button type="button" >!delete me!</button>
+</form>
+</a>
+</body>
+</html>
