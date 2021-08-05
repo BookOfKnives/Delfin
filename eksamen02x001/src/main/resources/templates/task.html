@@ -1,0 +1,31 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h2>Basic HTML Table</h2>
+<!--
+<ul th:each="Task : ${TaskArrayList}"></ul>
+<li th:text="${Task.getTitle}"></li> -->
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+    </tr>
+    <tr th:each="Task : ${TaskArrayList}">
+        <td th:text="${Task.getTitle}"></td>
+        <td th:text="${Task.getDescription}"></td>
+
+    </tr>
+</table>
+
+<ul th:each="Task : ${TaskArrayList}">
+    <li th:text="${Task.getTitle}"></li>
+</ul>
+
+</body>
+</html>
