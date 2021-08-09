@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>get all items</title>
+
+</head>
+<body>
+<table>
+    <tr>
+        <th>NAME</th>
+        <th>PRICE</th>
+        <th>IN STOCK</th>
+    </tr>
+    <tr th:each="item : ${AllitemList}">
+        <td th:text="${item.getTitle}"></td>
+        <td th:text="${item.getDescription}"></td>
+
+    </tr>
+</table>
+
+</body>
+</html>

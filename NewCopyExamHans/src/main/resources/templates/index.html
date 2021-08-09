@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<h1>welcome to the server</h1>
+<h2>Please login first.</h2>
+<header th:text="${session.username}">Dead</header>
+
+<form action="/login" method="post">
+    <div class="field">
+
+        <input type="text" name="username" id="username" required placeholder="Username">
+    </div>
+    <div class="field">
+        <input type="submit" value="LOGIN">
+    </div>
+<h3>Make your selection:</h3>
+<p>see all <a  href="/item">item</a> here<br>
+    add a <a  href="/additem">item</a> here</p><br>
+remove a <a  href="/removeitem">item</a> here<br>
+update item here <a  href="/updateitem">item</a> here
+</body>
+</html>
