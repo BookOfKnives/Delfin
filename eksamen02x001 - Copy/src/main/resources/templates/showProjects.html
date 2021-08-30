@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>This page shows proejcts</title>
+</head>
+<body>
+
+<h2>Project Table</h2>
+
+<table>
+    <tr>
+        <th>ID number of Project</th>
+        <th>Name of Project</th>
+        <th>Descrption of item</th>
+        <th>Porject owner</th>
+        <th>Start dato</th>
+        <th>Deadline</th>
+        <th>er det færdigt?</th>
+    </tr>
+    <tr th:each="ProjectModel : ${projectList}">
+
+        <td th:text="${ProjectModel.getProjectid}"></td>
+        <td th:text="${ProjectModel.getProjectName}"></td>
+        <td th:text="${ProjectModel.getProjectDescription}"></td>
+        <td th:text="${ProjectModel.getProjectOwner}"></td>
+        <td th:text="${ProjectModel.getProjectStartDate}"></td>
+        <td th:text="${ProjectModel.getProjectDeadline}"></td>
+        <td th:text="${ProjectModel.isProjectCompletionStatus}"></td>
+
+
+    </tr>
+    <p>Return to <a href="/">the index</a> here.</p>
+</table>
+</body>
+</html>

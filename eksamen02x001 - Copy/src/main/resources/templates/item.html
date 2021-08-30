@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Getting Started: Serving Web Content</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+
+<h2>Item Table</h2>
+
+<table>
+    <tr>
+        <th>ID number of Item</th>
+        <th>Name of Item</th>
+        <th>Descrption of item</th>
+    </tr>
+    <tr th:each="Item : ${ItemArrayList}">
+        <!--<td th:text=""></td>-->
+
+        <td th:text="${Item.getId}"></td>
+        <td th:text="${Item.getTitle}"></td>
+        <td th:text="${Item.getDescription}"></td>
+
+    </tr>
+<p>Return to <a href="/">the index</a> here.</p>
+</table>
+</body>
+</html>
