@@ -1,7 +1,10 @@
 package com.eksamen02x001.demo.controllers;
 
 import com.eksamen02x001.demo.models.ProjectModel;
+import com.eksamen02x001.demo.models.TaskModel;
 import com.eksamen02x001.demo.repository.ProjectRepository;
+import com.eksamen02x001.demo.repository.TaskRepository;
+import com.eksamen02x001.demo.service.TimeComparisonService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,18 +20,14 @@ import java.util.ArrayList;
 public class ProjectController {
 
     private ProjectRepository projectRepositoryInstanceForController = new ProjectRepository();
+    private TaskRepository taskRepositoryInstanceForController = new TaskRepository();
+    private TimeComparisonService timeComparisonService = new TimeComparisonService();
 
     @GetMapping(value="/showprojects")
-    public String showAllProjects(Model model,
-                                  HttpServletRequest request){
+    public String showAllProjects(Model model
+                                  ){
     ArrayList<ProjectModel> projectList = projectRepositoryInstanceForController.GetAllProjects();
-        System.out.println(projectList.get(0).toString());
-        System.out.println(projectList.isEmpty());
     model.addAttribute("projectList", projectList);
-
-//        HttpSession session = request.getSession(); //test af ,etode t ilat  lave nye projekter
-//        String username = (String) session.getAttribute("CurrentSessionUserName");
-//        projectRepositoryInstanceForController.startNewProjectInDatabaseAndReturnNewProjectID(username);
 
     return "showProjects.html";
     }
@@ -41,17 +40,48 @@ public class ProjectController {
     @PostMapping("/createnewproject")
     public String createNewProject(@RequestParam(name="ProjectName") String ProjectName,
                                    @RequestParam(name="ProjectDescription") String ProjectDescription,
-                                   //projectowner fås vha. getsession.current user
-                                   //samme med projectowner id? måske er den unødvendig
-                                  // startdate fås fra localdate.Now()
                                    @RequestParam(name="ProjectDeadline") String ProjectDeadline,
                                    HttpServletRequest request
                                     ){
         HttpSession session = request.getSession();
         String currentUser = (String) session.getAttribute("CurrentSessionUserName");
-        int tempId = projectRepositoryInstanceForController.getHighestNumberOfProjectIdNumberAndAddOne();
-        ProjectModel temp = new ProjectModel(tempId, ProjectName, ProjectDescription, currentUser, 0, ProjectDeadline);
+
+        int IDForTheNewProjectMustAlwaysBeHighest = projectRepositoryInstanceForController.getHighestNumberOfProjectIdNumberAndAddOne();
+
+        ProjectModel temp = new ProjectModel(IDForTheNewProjectMustAlwaysBeHighest, ProjectName, ProjectDescription, currentUser, 0, ProjectDeadline);
         projectRepositoryInstanceForController.addProjectToDB(temp);
         return "redirect:";
+    }
+
+    @GetMapping("/seeoneprojectandtasks")
+    public String seeoneprojectandtasks(){
+        return "menuforseeoneprojectandtasks.html";
+    }
+
+
+    @PostMapping("/seeoneprojectandtasks")
+    public String seeoneprojectandtasks(@RequestParam(name= "numberOfProjectForView") int ProjectNumberID,
+                                        Model model)
+    {
+        int totalNumberOfDaysEstimatedForProjectTasks = 0;
+        int numberOfDaysRemainingToDeadline = 0;
+
+        ArrayList<ProjectModel> projectList = projectRepositoryInstanceForController.getOneProject(ProjectNumberID);
+        model.addAttribute("oneProject", projectList); //selvom det er et array, har det kun et index.
+
+        ArrayList<TaskModel> taskList = taskRepositoryInstanceForController.getAllTasksAssociatedWithProject(ProjectNumberID);
+        model.addAttribute("oneProjectTaskList", taskList);
+
+        for(TaskModel t:taskList){
+            totalNumberOfDaysEstimatedForProjectTasks += t.getNumberOfDaysToCompletionEstimate();
+        }
+
+        LocalDate projectDeadline = projectList.get(0).getProjectDeadline();
+        numberOfDaysRemainingToDeadline = timeComparisonService.determineAmountOfDaysBetweenTwoDates(LocalDate.now(), projectDeadline);
+        System.out.println("This is the number of days remaining before deadline, in seeeoneproejctandtasks in Pro-Control: " +numberOfDaysRemainingToDeadline); //denne giver negativ hvis deadline er overskredet.
+
+        model.addAttribute("totalNumberOfDaysEstimatedForProjectTasks", totalNumberOfDaysEstimatedForProjectTasks);
+
+        return "seeoneprojectandtasks.html";
     }
 }

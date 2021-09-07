@@ -2,11 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>This page shows proejcts</title>
+    <title>This is one project and its tasks</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-
 <h2>Project Table</h2>
 
 <table>
@@ -19,7 +18,7 @@
         <th>Deadline</th>
         <th>er det færdigt?</th>
     </tr>
-    <tr th:each="ProjectModel : ${projectList}">
+    <tr th:each="ProjectModel : ${oneProject}">
 
         <td th:text="${ProjectModel.getProjectid}"></td>
         <td th:text="${ProjectModel.getProjectName}"></td>
@@ -31,7 +30,26 @@
 
 
     </tr>
-    <p>Return to <a href="/">the index</a> here.</p>
-</table>
+
+    <h2>task Table</h2>
+
+    <table>
+        <tr>
+            <th>Name of task</th>
+            <th>Description of task</th>
+            <th>getNumberOfDaysToCompletionEstimate</th>
+            <th>er det færdigt?</th>
+        </tr>
+        <tr th:each="TaskModel : ${oneProjectTaskList}">
+
+
+            <td th:text="${TaskModel.getTaskName}"></td>
+            <td th:text="${TaskModel.getTaskDescription}"></td>
+            <td th:text="${TaskModel.getNumberOfDaysToCompletionEstimate}"></td>
+            <td th:text="${TaskModel.isTaskCompletionStatus}"></td>
+
+        </tr>
+        <p>Return to <a href="/">the index</a> here.</p>
+    </table>
 </body>
 </html>

@@ -1,27 +1,46 @@
 package com.eksamen02x001.demo.models;
 
-import java.time.LocalDate;
-
 public class TaskModel {
     private String taskName;
     private String taskDescription;
-    private String taskProjectParentName;
     private int taskProjectParentID;
-    private LocalDate taskStartDate;
+    private int taskNumberOfDaysToCompletionEstimate;
+    private int taskCompletionStatus;
 
-    public TaskModel(String taskName, String taskDescription, String taskProjectParentName, int taskProjectParentID,
-                     LocalDate taskDeadline, boolean taskCompletionStatus) {
+
+    public TaskModel(String taskName,
+                     String taskDescription,
+                     int taskProjectParentID,
+                     int taskNumberOfDaysToCompletionEstimate,
+                     int taskCompletionStatus
+                     ) {
+
         this.taskName = taskName;
         this.taskDescription = taskDescription;
-        this.taskProjectParentName = taskProjectParentName;
         this.taskProjectParentID = taskProjectParentID;
-        this.taskStartDate = LocalDate.now();
-        this.taskDeadline = taskDeadline;
+        this.taskNumberOfDaysToCompletionEstimate = taskNumberOfDaysToCompletionEstimate;
         this.taskCompletionStatus = taskCompletionStatus;
+            }
+
+
+
+    public String getTaskName() {
+        return taskName;
     }
 
-    private LocalDate taskDeadline;
-    private boolean taskCompletionStatus;
+    public String getTaskDescription() {
+        return taskDescription;
+    }
 
+    public int getTaskProjectParentID() {
+        return taskProjectParentID;
+    }
 
+    public int getNumberOfDaysToCompletionEstimate() {
+        return taskNumberOfDaysToCompletionEstimate;
+    }
+
+    public int isTaskCompletionStatus() {
+        return taskCompletionStatus;
+    }
 }

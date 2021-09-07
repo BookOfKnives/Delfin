@@ -38,7 +38,7 @@ public class ProjectModel {
         this.projectOwnerID = projectOwnerID;
         this.projectStartDate = LocalDate.now();
         this.projectDeadline = LocalDate.parse(projectDeadline);
-                this.projectCompletionStatus = 0;
+        this.projectCompletionStatus = 0;
     }
 
     //denne konstruktør er til at hente projekter fra DBen (forskellen er at den modtager dato-information fra DBen)
@@ -55,8 +55,6 @@ public class ProjectModel {
         this.projectOwnerID = projectOwnerID;
         this.projectStartDate = LocalDate.parse(projectStartDate);
         this.projectDeadline = LocalDate.parse(projectDeadline);
-//        this.projectStartDate = LocalDate.now();
-//        this.projectDeadline = LocalDate.now();
         this.projectCompletionStatus = projectCompletionStatus;
     }
 
@@ -103,12 +101,9 @@ public class ProjectModel {
         return tempDeadlineString;
     }
 
-    public int compareProjectDates(){
-        int tempInt = projectStartDate.compareTo(projectDeadline); //sammenligner datoer -- ulempe at den først sammenligner året og så måneden...
-        return tempInt; //man kaunne bede den tage kun året eller dagen... det ville måske fungere.
-    }
     @Override //shitty tostring
     public String toString(){
         return "This project has name: " + getProjectName() + ", description: "+getProjectDescription()+getProjectOwner()+getProjectid()+getProjectDeadline()+getProjectStartDate();
     }
+
 }

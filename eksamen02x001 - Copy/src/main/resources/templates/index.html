@@ -3,6 +3,7 @@
 <head>
     <title>Getting Started: Serving Web Content</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 <h1>welcome to the server
@@ -14,9 +15,24 @@
 <p>see all <a  href="/item">item</a> here<br>
     add a <a  href="/additem">item</a> here</p><br>
 remove a <a  href="/removeitem">item</a> here<br>
-update item here <a  href="/updateitem">item</a> here
-<div>See all projects <a  href="/showprojects">here.</a>
-Add a project <a href="/createnewproject">here.</a>
+update item here <a  href="/updateitem">item</a> here<br>
+<div>See all projects <a  href="/showprojects">here.</a> <br>
+Add a project <a href="/createnewproject">here.</a><br>
+    Add a task <a href="/createnewtask">here.</a><br>
+
+    see a proejct:
+    <form action="/seeoneprojectandtasks" method="post">
+        <label for="numberOfProjectForView">Project ID number:</label><br>
+        <input type="text" id="numberOfProjectForView" name="numberOfProjectForView" placeholder="Any Project number"><br><br>
+        <input type="submit" value="See One Project">
+    </form>
 </div>
+
+
+<div class="flex-container">thisis the flex
+<div th:replace="item.html" th:action="@{/item}">div soup 1</div>
+<div>div soup 2</div>
+</div>
+
 </body>
 </html>

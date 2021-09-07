@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create a new task!</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<form action="/createnewtask" method="post">
+    <label for="taskName">Enter new task name</label>
+    <br>
+    <input type="text" id="taskName" name="taskName" placeholder="task name?"><br>
+    <label for="taskDescription">task description</label>
+    <br>
+    <input type="text" id="taskDescription" name="taskDescription" placeholder="task description"><br><br>
+    <br>
+    <label for="taskParentProjectId">What is the parent project ID number?</label>
+    <input type="text" id="taskParentProjectId" name="taskParentProjectId" placeholder="Parent ID?"><br><br>
+
+    <label for="taskTimeEstimate">How many days will the task take to complete?</label>
+    <input type="text" id="taskTimeEstimate" name="taskTimeEstimate" placeholder="How many days?"><br><br>
+
+    <input type="submit" value="Submit New Task">
+    <br>
+
+</form>
+</body>
+</html>

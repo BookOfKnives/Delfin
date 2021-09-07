@@ -2,6 +2,7 @@ package com.eksamen02x001.demo.repository;
 
 import com.eksamen02x001.demo.models.Item;
 import com.eksamen02x001.demo.models.ProjectModel;
+import com.eksamen02x001.demo.service.DatabaseConnection;
 import org.springframework.http.converter.json.GsonBuilderUtils;
 
 
@@ -16,10 +17,10 @@ import java.sql.SQLException;
 public class ProjectRepository {
 
     private Connection conn;
-    private com.eksamen02x001.demo.service.DatabaseConnection DatabaseConnection;
+    private DatabaseConnection DatabaseConnection;
 
     public ProjectRepository(){ //konstruktør som init'er dbC og conn
-        DatabaseConnection = com.eksamen02x001.demo.service.DatabaseConnection.getInstanceOfDatabaseConnection(); //singleton instance (er der en kortere måde?)
+        DatabaseConnection = DatabaseConnection.getInstanceOfDatabaseConnection(); //singleton instance (er der en kortere måde?)
         conn = DatabaseConnection.getConn();
     }
 
@@ -38,6 +39,36 @@ public class ProjectRepository {
         }
         return ++temp;
     }
+
+    public ArrayList<ProjectModel> getOneProject(int ProjectIDnumber){
+        ArrayList<ProjectModel> allProjects = new ArrayList<ProjectModel>();
+        try {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM taskschema.project_table WHERE idproject_table = " + ProjectIDnumber +";");
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                ProjectModel tmp = new ProjectModel(
+                        rs.getInt(1), //1 henter id)
+                        rs.getString(2), //2 henter navn
+                        rs.getString(3), //2 henter beskrivelse
+                        rs.getString(4), //4 henter projekt ejer navn
+                        rs.getInt(5), //5 henter porjekt ejer id
+                        rs.getString(6), //henter startdato
+                        rs.getString(7), //gdeadline
+                        rs.getInt(8));
+
+                allProjects.add(tmp);
+
+            }
+        }
+        catch(SQLException e){
+            System.out.println("Something went wrong in get all projects");
+            System.out.println(e.getMessage());
+        }
+        return allProjects;
+    }
+
 
     public ArrayList<ProjectModel> GetAllProjects(){
         ArrayList<ProjectModel> allProjects = new ArrayList<ProjectModel>();

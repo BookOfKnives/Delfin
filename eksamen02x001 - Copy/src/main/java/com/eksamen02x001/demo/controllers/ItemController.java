@@ -36,56 +36,6 @@ public class ItemController {
         return "item.html";
     }
 
-    @GetMapping("/frag")
-    public String greeting2(Model model)
-    {
-      ItemArrayList = ItemRepositoryInstance.getAllItems();
-        model.addAttribute("ItemArrayList", ItemArrayList);
-        return "fragmentMain.html";
-    }
-
-
-//    @PostMapping("/additem") //den gamle additem
-//      public String addItem(@RequestParam(name="ItemName", required=false) String ItemName,
-//                            @RequestParam(name="ItemDescription", required=false) String ItemDescription,
-//                            Model model){
-//        Item newItem = new Item(ItemName, ItemDescription);
-//
-//        ItemArrayList.add(newItem);
-//        model.addAttribute("ItemArrayList", ItemArrayList);
-//    ItemArrayList.add(newItem);
-//    return "redirect:";
-//    }
-
-//    @GetMapping("/set-session")
-//    @ResponseBody
-//    public String setSession(HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        session.setAttribute("username", "CookieMonster42");
-//
-//        return "Username saved in the session";
-//    }
-
-//        @PostMapping("/login") //gammel login, som rent faktisk (næsten) kunne tjekke, om brugerens navn eksisterede i
-    // databasen.
-//       public String login(HttpServletRequest request,
-//                        @RequestParam(name="username") String username) {
-//
-//        //ItemRepositoryInstance.doesUserExist(username);
-//        HttpSession session = request.getSession();
-//
-//        int userID = ItemRepositoryInstance.doesUserExist(username);
-//        if (userID == -1) {
-//            System.out.println("User not OK!");
-//            ItemRepositoryInstance.createNewUser(username);
-//            userID = ItemRepositoryInstance.getLastUserId();
-//        }
-//        System.out.println("End of login method in controller");
-//        session.setAttribute("userID", userID);
-//
-//
-//        return "redirect:";
-//    }
 
     @GetMapping("/get-session")
     @ResponseBody
@@ -118,12 +68,6 @@ public class ItemController {
         return "redirect:";
     }
 
-//    @GetMapping("/getallitems") //isnt used?
-//    public String GetAllItems(Model model){
-//        ItemArrayList = ItemRepositoryInstance.getAllItems();
-//        model.addAttribute("AllItemList", ItemArrayList);
-//        return "getallItems.html";
-//    }
     @GetMapping("/removeitem")
     public String removeItem(){
         return "removeitem.html";
