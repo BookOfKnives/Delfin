@@ -7,13 +7,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 @Controller
 public class TaskController {
 
-    private TaskRepository TaskRepository = new TaskRepository();
+    private TaskRepository taskRepositoryInstanceForController = new TaskRepository();
+
     @GetMapping("createnewtask")
     public String createNewTask(){
         return "createNewTask.html";
@@ -26,8 +24,19 @@ public class TaskController {
                                 @RequestParam(name="taskParentProjectId") int taskParentProjectId
                                 ){
 
-    TaskModel newTempTask = new TaskModel(TaskName, TaskDescription, taskParentProjectId, taskTimeEstimate,0);
-        TaskRepository.addTaskToDB(newTempTask);
+        int IDForNewTaskMustBeOneHigherThanHighestCurrentTaskID = 0;
+        IDForNewTaskMustBeOneHigherThanHighestCurrentTaskID = taskRepositoryInstanceForController.getHighestNumberOfTaskIDAndAddOne();
+
+    TaskModel newTempTask = new TaskModel(IDForNewTaskMustBeOneHigherThanHighestCurrentTaskID, TaskName, TaskDescription, taskParentProjectId, taskTimeEstimate,0);
+        taskRepositoryInstanceForController.addTaskToDB(newTempTask);
+
+        return "redirect:";
+    }
+
+    @PostMapping("marktaskasdone")
+    public String markTaskAsDone(@RequestParam(name="taskIDnumber") int taskIDnumber){
+        taskRepositoryInstanceForController.markTaskAsDone(taskIDnumber);
+
         return "redirect:";
     }
 }

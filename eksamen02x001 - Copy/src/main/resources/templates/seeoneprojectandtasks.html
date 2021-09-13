@@ -6,17 +6,17 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h2>Project Table</h2>
+<h2>Currently viewing project ID: <span th:text="${currentProjectNumber}"></span> and associated task table.</h2>
 
 <table>
     <tr>
-        <th>ID number of Project</th>
-        <th>Name of Project</th>
-        <th>Description of item</th>
-        <th>Project owner</th>
-        <th>Start dato</th>
+        <th>Project ID #</th>
+        <th>Project Name</th>
+        <th>Project Description</th>
+        <th>Project Owner</th>
+        <th>Start Date</th>
         <th>Deadline</th>
-        <th>er det færdigt?</th>
+        <th>Is it completed?</th>
     </tr>
     <tr th:each="ProjectModel : ${oneProject}">
 
@@ -26,30 +26,78 @@
         <td th:text="${ProjectModel.getProjectOwner}"></td>
         <td th:text="${ProjectModel.getProjectStartDate}"></td>
         <td th:text="${ProjectModel.getProjectDeadline}"></td>
-        <td th:text="${ProjectModel.isProjectCompletionStatus}"></td>
+        <td th:if="${ProjectModel.isProjectCompletionStatus == 0}">In Progress</td>
+        <td th:if="${ProjectModel.isProjectCompletionStatus == 1}">Done</td>
 
 
     </tr>
-
-    <h2>task Table</h2>
+    <br>
 
     <table>
         <tr>
-            <th>Name of task</th>
-            <th>Description of task</th>
-            <th>getNumberOfDaysToCompletionEstimate</th>
-            <th>er det færdigt?</th>
+            <th>Task ID #</th>
+            <th>Task Name</th>
+            <th>Description</th>
+            <th>Parent Project ID #</th>
+            <th>Estimated Days Until Completion</th>
+            <th>Task Completed?</th>
         </tr>
         <tr th:each="TaskModel : ${oneProjectTaskList}">
 
-
+            <td th:text="${TaskModel.getTaskID}"></td>
             <td th:text="${TaskModel.getTaskName}"></td>
             <td th:text="${TaskModel.getTaskDescription}"></td>
+            <td th:text="${TaskModel.getTaskProjectParentID}"></td>
             <td th:text="${TaskModel.getNumberOfDaysToCompletionEstimate}"></td>
-            <td th:text="${TaskModel.isTaskCompletionStatus}"></td>
+            <td th:if="${TaskModel.isTaskCompletionStatus == 0}">In Progress</td>
+            <td th:if="${TaskModel.isTaskCompletionStatus == 1}">Done</td>
+
 
         </tr>
-        <p>Return to <a href="/">the index</a> here.</p>
+
+
     </table>
+     <br>
+    <br>
+    You have <span th:text="${totalNumberOfDaysEstimatedForProjectTasks}">days</span> days worth of tasks left.
+    <div>
+    The total number of days required by the tasks is <span th:text="${numberOfDaysRemainingInWhichToCompleteProjectBeforeDeadling}">number</span>, relative to the deadline. If this number is negative, you are in trouble.
+    <br>
+    You have <span th:text="${numberOfDaysRemainingToDeadline}">numbers</span> days left before the deadline.
+        <br></div>
+
+
+    <br>
+    <br>
+    Do you wish to add tasks to this project? Remember to add it to the correct project-ID!
+    <form action="/createnewtask" method="post">
+        <label for="taskName">Enter new task name</label>
+        <br>
+        <input type="text" id="taskName" name="taskName" placeholder="task name?"><br>
+        <label for="taskDescription">Task Description</label>
+        <br>
+        <input type="text" id="taskDescription" name="taskDescription" placeholder="Task Description"><br><br>
+        <br>
+        <label for="taskParentProjectId">What is the parent project ID number?</label>
+        <input type="text" id="taskParentProjectId" name="taskParentProjectId" placeholder="Project ID #"><br><br>
+
+        <label for="taskTimeEstimate">How many days will the task take to complete?</label>
+        <input type="text" id="taskTimeEstimate" name="taskTimeEstimate" placeholder="How many days?"><br><br>
+
+        <input type="submit" value="Submit New Task">
+        <br>
+
+    </form>
+    <br>
+
+    <h3>Mark task as done?</h3>
+    <form action="/marktaskasdone" method="post">
+    <label for="taskIDnumber">What task do you want to mark as finished?</label>
+    <input type="text" id="taskIDnumber" name="taskIDnumber" placeholder="ID # of task"><br><br>
+
+    <input type="submit" value="Mark as done">
+    </form>
+    <br>
+    <p>Return to <a href="/">the index</a> here.</p>
 </body>
 </html>

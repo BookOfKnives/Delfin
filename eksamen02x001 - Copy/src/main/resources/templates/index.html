@@ -6,21 +6,17 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>welcome to the server
-<header th:text="${session.CurrentSessionUserName}">Dead</header>
+<h1>Welcome to the Project Manager, <span th:text="${session.CurrentSessionUserName}">user</span>!
 </h1>
-<p>det er er index i templates</p>
+
 
 <h3>Make your selection:</h3>
-<p>see all <a  href="/item">item</a> here<br>
-    add a <a  href="/additem">item</a> here</p><br>
-remove a <a  href="/removeitem">item</a> here<br>
-update item here <a  href="/updateitem">item</a> here<br>
+
 <div>See all projects <a  href="/showprojects">here.</a> <br>
 Add a project <a href="/createnewproject">here.</a><br>
     Add a task <a href="/createnewtask">here.</a><br>
 
-    see a proejct:
+    Choose a project number to view it and associated tasks:
     <form action="/seeoneprojectandtasks" method="post">
         <label for="numberOfProjectForView">Project ID number:</label><br>
         <input type="text" id="numberOfProjectForView" name="numberOfProjectForView" placeholder="Any Project number"><br><br>
@@ -28,11 +24,6 @@ Add a project <a href="/createnewproject">here.</a><br>
     </form>
 </div>
 
-
-<div class="flex-container">thisis the flex
-<div th:replace="item.html" th:action="@{/item}">div soup 1</div>
-<div>div soup 2</div>
-</div>
 
 </body>
 </html>

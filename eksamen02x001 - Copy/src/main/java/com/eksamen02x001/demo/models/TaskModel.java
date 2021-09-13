@@ -1,6 +1,7 @@
 package com.eksamen02x001.demo.models;
 
 public class TaskModel {
+    private int taskID;
     private String taskName;
     private String taskDescription;
     private int taskProjectParentID;
@@ -8,13 +9,14 @@ public class TaskModel {
     private int taskCompletionStatus;
 
 
-    public TaskModel(String taskName,
+    public TaskModel(int taskID,
+                    String taskName,
                      String taskDescription,
                      int taskProjectParentID,
                      int taskNumberOfDaysToCompletionEstimate,
                      int taskCompletionStatus
                      ) {
-
+        this.taskID = taskID;
         this.taskName = taskName;
         this.taskDescription = taskDescription;
         this.taskProjectParentID = taskProjectParentID;
@@ -43,4 +45,6 @@ public class TaskModel {
     public int isTaskCompletionStatus() {
         return taskCompletionStatus;
     }
+
+    public int getTaskID() {return taskID;}
 }

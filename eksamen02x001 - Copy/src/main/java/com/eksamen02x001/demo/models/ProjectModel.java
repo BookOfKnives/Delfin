@@ -3,15 +3,6 @@ package com.eksamen02x001.demo.models;
 import java.time.LocalDate;
 
 public class ProjectModel {
-//    public ProjectModel(int projectid, String projectName, String projectDescription, String projectOwner, LocalDate projectStartDate, LocalDate projectDeadline, int projectCompletionStatus) {
-//        this.projectid = projectid;
-//        this.projectName = projectName;
-//        this.projectDescription = projectDescription;
-//        this.projectOwner = projectOwner;
-//        this.projectStartDate = projectStartDate;
-//        this.projectDeadline = projectDeadline;
-//        this.projectCompletionStatus = projectCompletionStatus;
-//    }
 
     private int projectid;
     private String projectName;
@@ -19,9 +10,6 @@ public class ProjectModel {
     private String projectOwner;
     private int projectOwnerID;
     private LocalDate projectStartDate;
-            //LocalDate.now(); //for at minde mig om hvad metoden er
-//              this.startDate = new SimpleDateFormat("yy-MM-dd").parse(projectStartDate);
-//            this.deadline = new SimpleDateFormat("yy-MM-dd").parse(projectDeadline);
     private LocalDate projectDeadline;
     private int projectCompletionStatus;
 
@@ -29,8 +17,7 @@ public class ProjectModel {
     public ProjectModel(int projectid, String projectName, String projectDescription, String projectOwner,
                        int projectOwnerID,
                         String projectDeadline
-                        //int projectCompletionStatus
-                        ) {
+                                                ) {
         this.projectid = projectid;
         this.projectName = projectName;
         this.projectDescription = projectDescription;
@@ -101,7 +88,7 @@ public class ProjectModel {
         return tempDeadlineString;
     }
 
-    @Override //shitty tostring
+    @Override
     public String toString(){
         return "This project has name: " + getProjectName() + ", description: "+getProjectDescription()+getProjectOwner()+getProjectid()+getProjectDeadline()+getProjectStartDate();
     }

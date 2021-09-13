@@ -30,7 +30,7 @@ public class TaskRepository {
             while(rs.next()){
                 rs.getInt(1);
                 TaskModel tmp = new TaskModel(
-                        //rs.getInt(2), //1 henter id, bruges ikke af task-modellen
+                        rs.getInt(1), //1 henter id,
                         rs.getString(2), //2 henter navn
                         rs.getString(3), //2 henter beskrivelse
                         rs.getInt(4), //4 henter taskens project-forældre ID
@@ -121,7 +121,7 @@ public class TaskRepository {
             while(rs.next()){
                 rs.getInt(1);
                 TaskModel tmp = new TaskModel(
-                        //rs.getInt(2), //1 henter id, bruges ikke af task-modellen
+                        rs.getInt(1), //1 henter id,
                         rs.getString(2), //2 henter navn
                         rs.getString(3), //2 henter beskrivelse
                         rs.getInt(4), //4 henter taskens project-forældre ID
@@ -137,6 +137,38 @@ public class TaskRepository {
             System.out.println(e.getMessage());
         }
         return allTasks;
+    }
+
+    public int getHighestNumberOfTaskIDAndAddOne() {
+        int temp = 0;
+        try {
+            PreparedStatement stmt = conn.prepareStatement("SELECT MAX(idtask_table) FROM task_table;");
+            ResultSet rs = stmt.executeQuery();
+            rs.next(); //går fra start (null) til den første søjle
+            temp = rs.getInt(1); //henter int'en fra den første søjle (der er kun een søjle med een række
+
+        } catch(SQLException e){
+            System.out.println("Something went wrong in get new task number max id");
+            System.out.println(e.getMessage());
+        }
+        return ++temp;
+    }
+
+    public void markTaskAsDone(int taskIDnumber) {
+        System.out.println("hitting marktaskasdone now, in TaskRepo, with id no.:" + taskIDnumber);
+
+        String ForSQL = "UPDATE task_table set task_iscompleted = 1 where idtask_table = "+taskIDnumber;
+
+        try {
+            PreparedStatement stmt = conn.prepareStatement(ForSQL);
+            stmt.executeUpdate();
+
+            System.out.println("Task added succesfully");
+        }
+        catch(SQLException e){
+            System.out.println("Something went wrong in addTask to DB");
+            System.out.println(e.getMessage());
+        }
     }
 }
 

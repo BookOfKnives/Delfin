@@ -27,7 +27,8 @@
         <td th:text="${ProjectModel.getProjectOwner}"></td>
         <td th:text="${ProjectModel.getProjectStartDate}"></td>
         <td th:text="${ProjectModel.getProjectDeadline}"></td>
-        <td th:text="${ProjectModel.isProjectCompletionStatus}"></td>
+        <td th:if="${ProjectModel.isProjectCompletionStatus == 0}">In Progress</td>
+        <td th:if="${ProjectModel.isProjectCompletionStatus == 1}">Done</td>
 
 
     </tr>

@@ -14,12 +14,12 @@ public class LoginController {
     @GetMapping(value={"/", "/index.html", "/index"})
     public String index(HttpServletRequest request)
     {
-        System.out.println("hit Index i LoginController");
+        String username ="";
+
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("CurrentSessionUserName");
-        System.out.println(username);
-       // if (username == null) return "login.html"; //sat username til dfealt for at gøre testning lettere...
-        username = "dfeaulttaest";
+        username = (String) session.getAttribute("CurrentSessionUserName");
+        if (username == null) return "login.html";
+        //username = "default test";//sat username til dfealt for at gøre testning lettere
         session.setAttribute("CurrentSessionUserName", username);
 
         return "index.html";
@@ -28,7 +28,6 @@ public class LoginController {
     @PostMapping("/login")
     public String login(HttpServletRequest request,
                         @RequestParam(name="username") String username) {
-
 
         HttpSession session = request.getSession();
         session.setAttribute("CurrentSessionUserName", username);

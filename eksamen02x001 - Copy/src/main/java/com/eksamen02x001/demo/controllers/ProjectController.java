@@ -26,7 +26,9 @@ public class ProjectController {
     @GetMapping(value="/showprojects")
     public String showAllProjects(Model model
                                   ){
-    ArrayList<ProjectModel> projectList = projectRepositoryInstanceForController.GetAllProjects();
+        ArrayList<ProjectModel> projectList;
+
+    projectList = projectRepositoryInstanceForController.GetAllProjects();
     model.addAttribute("projectList", projectList);
 
     return "showProjects.html";
@@ -43,19 +45,16 @@ public class ProjectController {
                                    @RequestParam(name="ProjectDeadline") String ProjectDeadline,
                                    HttpServletRequest request
                                     ){
+        int IDForTheNewProjectMustAlwaysBeHighest = 0;
+
         HttpSession session = request.getSession();
         String currentUser = (String) session.getAttribute("CurrentSessionUserName");
 
-        int IDForTheNewProjectMustAlwaysBeHighest = projectRepositoryInstanceForController.getHighestNumberOfProjectIdNumberAndAddOne();
+        IDForTheNewProjectMustAlwaysBeHighest = projectRepositoryInstanceForController.getHighestNumberOfProjectIdNumberAndAddOne();
 
         ProjectModel temp = new ProjectModel(IDForTheNewProjectMustAlwaysBeHighest, ProjectName, ProjectDescription, currentUser, 0, ProjectDeadline);
         projectRepositoryInstanceForController.addProjectToDB(temp);
         return "redirect:";
-    }
-
-    @GetMapping("/seeoneprojectandtasks")
-    public String seeoneprojectandtasks(){
-        return "menuforseeoneprojectandtasks.html";
     }
 
 
@@ -65,6 +64,7 @@ public class ProjectController {
     {
         int totalNumberOfDaysEstimatedForProjectTasks = 0;
         int numberOfDaysRemainingToDeadline = 0;
+        int numberOfDaysRemainingInWhichToCompleteProjectBeforeDeadling = 0;
 
         ArrayList<ProjectModel> projectList = projectRepositoryInstanceForController.getOneProject(ProjectNumberID);
         model.addAttribute("oneProject", projectList); //selvom det er et array, har det kun et index.
@@ -78,9 +78,14 @@ public class ProjectController {
 
         LocalDate projectDeadline = projectList.get(0).getProjectDeadline();
         numberOfDaysRemainingToDeadline = timeComparisonService.determineAmountOfDaysBetweenTwoDates(LocalDate.now(), projectDeadline);
-        System.out.println("This is the number of days remaining before deadline, in seeeoneproejctandtasks in Pro-Control: " +numberOfDaysRemainingToDeadline); //denne giver negativ hvis deadline er overskredet.
 
-        model.addAttribute("totalNumberOfDaysEstimatedForProjectTasks", totalNumberOfDaysEstimatedForProjectTasks);
+        numberOfDaysRemainingInWhichToCompleteProjectBeforeDeadling = numberOfDaysRemainingToDeadline - totalNumberOfDaysEstimatedForProjectTasks;
+
+        model.addAttribute("numberOfDaysRemainingInWhichToCompleteProjectBeforeDeadling", numberOfDaysRemainingInWhichToCompleteProjectBeforeDeadling); //antal dage tilbage før deadline fra i dag
+        model.addAttribute("totalNumberOfDaysEstimatedForProjectTasks", totalNumberOfDaysEstimatedForProjectTasks); //jeg får antallet af tasks-dage
+        model.addAttribute("numberOfDaysRemainingToDeadline", numberOfDaysRemainingToDeadline); //number of days left before deadline
+
+        model.addAttribute("currentProjectNumber", ProjectNumberID);
 
         return "seeoneprojectandtasks.html";
     }

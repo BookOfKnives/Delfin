@@ -11,11 +11,6 @@ public class TimeComparisonService {
 
     LocalDate localDate;
 
-    public boolean determineIfThereIsStillTimeBeforeDeadline(LocalDate deadline){
-        localDate = LocalDate.now();
-        return localDate.isBefore(deadline);
-    }
-
     public int determineAmountOfDaysBetweenTwoDates(LocalDate currentDate, LocalDate deadline){
         long numberOfDays = 0;
         int numberOfDaysInInt = 0;
@@ -25,4 +20,5 @@ public class TimeComparisonService {
 
         return numberOfDaysInInt;
     }
+
 }

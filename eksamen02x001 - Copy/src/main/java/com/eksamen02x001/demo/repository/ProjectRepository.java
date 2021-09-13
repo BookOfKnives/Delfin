@@ -1,12 +1,9 @@
 package com.eksamen02x001.demo.repository;
 
-import com.eksamen02x001.demo.models.Item;
 import com.eksamen02x001.demo.models.ProjectModel;
 import com.eksamen02x001.demo.service.DatabaseConnection;
-import org.springframework.http.converter.json.GsonBuilderUtils;
 
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
